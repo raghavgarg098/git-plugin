@@ -148,6 +148,7 @@ public class GitSCM extends GitSCMBackwardCompatibility {
     public static final String GIT_COMMIT = "GIT_COMMIT";
     public static final String GIT_PREVIOUS_COMMIT = "GIT_PREVIOUS_COMMIT";
     public static final String GIT_PREVIOUS_SUCCESSFUL_COMMIT = "GIT_PREVIOUS_SUCCESSFUL_COMMIT";
+    public static final String GIT_CEILING_DIRECTORIES = "GIT_CEILING_DIRECTORIES";
 
     /**
      * All the configured extensions attached to this.
@@ -1289,6 +1290,8 @@ public class GitSCM extends GitSCMBackwardCompatibility {
 
         EnvVars environment = build.getEnvironment(listener);
         GitClient git = createClient(listener, environment, build, workspace);
+        String homeValue = environment.get("HOMEPATH");
+        environment.put(GIT_CEILING_DIRECTORIES,homeValue + "/jobs");
 
         if (launcher instanceof Launcher.DecoratedLauncher) {
             // We cannot check for git instanceof CliGitAPIImpl vs. JGitAPIImpl here since (when running on an agent) we will actually have a RemoteGitImpl which is opaque.
