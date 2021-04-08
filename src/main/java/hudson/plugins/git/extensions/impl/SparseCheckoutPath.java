@@ -85,7 +85,7 @@ public class SparseCheckoutPath extends AbstractDescribableImpl<SparseCheckoutPa
                     String envKey = matcher.group(1);
                     String value = envVars.get(envKey, "");
                     System.out.println("Value: " + value);
-                    path = path.replace("{$" + envKey + "}", value);
+                    path = path.replace("${" + envKey + "}", value);
                 }
             } catch (InterruptedException | IOException e) {
             }
